@@ -12,4 +12,9 @@ export default function app() {
   let set = new Set([1, 2, 3]);
   console.log(a);
   console.log(set);
+
+  let b = () => {
+    console.log('b');
+  };
+  b();
 }

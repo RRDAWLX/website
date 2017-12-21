@@ -5,14 +5,15 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const config = {
-  entry: {
-    index: './src/index.js'  // 应用代码
-  },
+  entry: [
+    'react-hot-loader/patch',
+    './src/index.jsx',
+  ],
 
   output: {
     filename: '[name].js',
-    path: __dirname + '/dist'
-    // publicPath: 'https://mjrhd.vipstatic.com/'  // 可通过 __webpack_public_path__ 设置
+    path: __dirname + '/dist',
+    publicPath: '/'  // 可通过 __webpack_public_path__ 设置
   },
 
   module: {
@@ -20,9 +21,7 @@ const config = {
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        use: [
-          {loader: 'babel-loader'}
-        ]
+        use: ['babel-loader']
       },
 
       {
