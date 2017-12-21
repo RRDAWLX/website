@@ -6,6 +6,8 @@ import ReactDOM from 'react-dom';
 import {AppContainer} from 'react-hot-loader';
 import App from './App.jsx';
 
+console.log(process.env.NODE_ENV);
+
 let div = document.createElement('div');
 document.body.appendChild(div);
 

@@ -1,3 +1,4 @@
+const path = require('path');
 const webpack = require('webpack');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
@@ -11,8 +12,8 @@ const config = {
   ],
 
   output: {
-    filename: '[name].js',
-    path: __dirname + '/dist',
+    filename: '[name].[chunkhash].js',
+    path: path.resolve(__dirname, '../dist'),  // 必须为绝对路径
     publicPath: '/'  // 可通过 __webpack_public_path__ 设置
   },
 
@@ -20,7 +21,7 @@ const config = {
     rules: [
       {
         test: /\.(js|jsx)$/,
-        exclude: /node_modules/,
+        // exclude: /node_modules/,
         use: ['babel-loader']
       },
 
@@ -43,16 +44,20 @@ const config = {
   },
 
   plugins: [
-    new CleanWebpackPlugin(['dist']),   // 每次构建前清理 dist 文件夹
+    new CleanWebpackPlugin(['../dist']),   // 每次构建前清理 dist 文件夹
     // 压缩 js
-    /*new UglifyJsPlugin({
+    new UglifyJsPlugin({
       uglifyOptions: {
         ecma: 8
       }
-    }),*/
+    }),
+    new webpack.DefinePlugin({
+      'process.env': {    // 配置系统环境变量
+        'NODE_ENV': JSON.stringify('production')
+      }
+    }),
     new HtmlWebpackPlugin(),  // 生成一个HTML文件
     new webpack.NamedModulesPlugin(),   // 作用：1、用路径标识模块，而不是用数字标识符，避免 vendor 的chunkhash 发生变化；2、用于开启模块热替换
-    new webpack.HotModuleReplacementPlugin(),   // 用于开启模块热替换
 
     // 提取第三方库，此实例必须在 manifest 实例前面。
     new webpack.optimize.CommonsChunkPlugin({
@@ -72,12 +77,7 @@ const config = {
       filename: 'style.css',
       allChunks: true
     }),
-  ],
-
-  devServer: {
-    contentBase: './dist',
-    hot: true   // 开启模块热替换
-  }
+  ]
 };
 
 module.exports = config;

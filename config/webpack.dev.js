@@ -1,3 +1,4 @@
+const path = require('path');
 const webpack = require('webpack');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
@@ -5,18 +6,25 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const config = {
-  entry: {
-    index: './src/index.js'  // 应用代码
-  },
+  entry: [
+    'react-hot-loader/patch',
+    './src/index.jsx',
+  ],
 
   output: {
     filename: '[name].js',
-    path: __dirname + '/dist'
-    // publicPath: 'https://mjrhd.vipstatic.com/'  // 可通过 __webpack_public_path__ 设置
+    path: path.resolve(__dirname, '../dist'),
+    publicPath: '/'  // 可通过 __webpack_public_path__ 设置，如要使用 React 的 HMR，此处的值应设为 '/'。
   },
 
   module: {
     rules: [
+      {
+        test: /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        use: ['babel-loader']
+      },
+
       {
         test: /\.css$/,
         // exclude: /node_modules/,
@@ -31,18 +39,23 @@ const config = {
         use: [
           'file-loader',
         ]
-      }
+      },
     ]
   },
 
   plugins: [
-    new CleanWebpackPlugin(['dist']),   // 每次构建前清理 dist 文件夹
+    new CleanWebpackPlugin(['../dist']),   // 每次构建前清理 dist 文件夹
     // 压缩 js
     /*new UglifyJsPlugin({
       uglifyOptions: {
         ecma: 8
       }
     }),*/
+    new webpack.DefinePlugin({
+      'process.env': {    // 配置系统环境变量
+        'NODE_ENV': JSON.stringify('development')
+      }
+    }),
     new HtmlWebpackPlugin(),  // 生成一个HTML文件
     new webpack.NamedModulesPlugin(),   // 作用：1、用路径标识模块，而不是用数字标识符，避免 vendor 的chunkhash 发生变化；2、用于开启模块热替换
     new webpack.HotModuleReplacementPlugin(),   // 用于开启模块热替换
@@ -68,7 +81,7 @@ const config = {
   ],
 
   devServer: {
-    contentBase: './dist',
+    contentBase: '../dist',
     hot: true   // 开启模块热替换
   }
 };
