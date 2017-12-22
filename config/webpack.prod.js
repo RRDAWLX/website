@@ -44,7 +44,7 @@ const config = {
   },
 
   plugins: [
-    new CleanWebpackPlugin(['../dist']),   // 每次构建前清理 dist 文件夹
+    new CleanWebpackPlugin(['../dist'], {allowExternal: true}),   // 每次构建前清理 dist 文件夹
     // 压缩 js
     new UglifyJsPlugin({
       uglifyOptions: {

@@ -44,7 +44,7 @@ const config = {
   },
 
   plugins: [
-    new CleanWebpackPlugin(['../dist']),   // 每次构建前清理 dist 文件夹
+    new CleanWebpackPlugin(['../dist'], {allowExternal: true}),   // 每次构建前清理 dist 文件夹
     // 压缩 js
     /*new UglifyJsPlugin({
       uglifyOptions: {
@@ -82,6 +82,23 @@ const config = {
 
   devServer: {
     contentBase: '../dist',
+    port: 8081,
+    compress: true, // 开启 gzip 压缩
+    // historyApiFallback: true,   // 支持单页也用，用 index.html 代替 404 响应。
+    open: true,   // 自动在浏览器中打开页面,
+    overlay: {    // 在网页中显示编译警告与错误
+      warnings: true,
+      errors: true
+    },
+    proxy: {
+      '/pages/': {
+        target: 'http:\/\/localhost:8081',
+        pathRewrite: {
+          '^/pages/': '/'
+        }
+      },
+      '/api/': 'http:\/\/localhost:3000'  // 代理所有的异步请求
+    },
     hot: true   // 开启模块热替换
   }
 };

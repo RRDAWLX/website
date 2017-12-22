@@ -1,5 +1,4 @@
 import 'babel-polyfill';
-import 'whatwg-fetch';
 // import 'normalize.css';  // 不知道为什么，引用了第三方的css，自定义的css就不被引用了
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -25,5 +24,5 @@ render(App);
 if (module.hot) {
   module.hot.accept('./App.jsx', () => {
     render(App);
-  })
+  });
 }
