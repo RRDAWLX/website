@@ -5,9 +5,8 @@ let express = require('express'),
 let app = new express();
 
 app.use(function(req, res, next) {
-  console.log(req.url);
   req.url = req.url + '.json';
-  console.log(req.url);
+  req.method = 'GET';
   next();
 });
 

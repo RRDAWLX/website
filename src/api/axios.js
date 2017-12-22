@@ -19,7 +19,7 @@ axios.interceptors.response.use(res => {
     };
   }
 }, error => {
-  conosle.log('response interceptor 2 invoked');
+  console.log('response interceptor 2 invoked');
 
   return {
     status: 0,

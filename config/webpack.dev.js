@@ -84,8 +84,8 @@ const config = {
     contentBase: '../dist',
     port: 8081,
     compress: true, // 开启 gzip 压缩
-    // historyApiFallback: true,   // 支持单页也用，用 index.html 代替 404 响应。
-    open: true,   // 自动在浏览器中打开页面,
+    historyApiFallback: true,   // 支持单页应用，用 index.html 响应 404 请求，不会响应被代理的请求。
+    open: false,   // 是否自动在浏览器中打开页面,
     overlay: {    // 在网页中显示编译警告与错误
       warnings: true,
       errors: true
