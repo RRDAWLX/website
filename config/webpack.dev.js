@@ -97,7 +97,7 @@ const config = {
           '^/pages/': '/'
         }
       },
-      '/api/': 'http:\/\/localhost:3000'  // 代理所有的异步请求
+      '/api/': 'http:\/\/localhost:3001'  // 代理所有的异步请求
     },
     hot: true   // 开启模块热替换
   }
