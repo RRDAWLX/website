@@ -1,7 +1,7 @@
-{
+module.exports = {
   "status": 1,
   "data": {
-    "login": true,
+    "login": false,
     "name": "rrdawlx"
   }
-}
+};
