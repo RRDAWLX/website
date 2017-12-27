@@ -56,7 +56,10 @@ const config = {
         'NODE_ENV': JSON.stringify('development')
       }
     }),
-    new HtmlWebpackPlugin(),  // 生成一个HTML文件
+    // 生成一个HTML文件
+    new HtmlWebpackPlugin({
+      template: 'src/index.html'
+    }),
     new webpack.NamedModulesPlugin(),   // 作用：1、用路径标识模块，而不是用数字标识符，避免 vendor 的chunkhash 发生变化；2、用于开启模块热替换
     new webpack.HotModuleReplacementPlugin(),   // 用于开启模块热替换
 
@@ -79,6 +82,11 @@ const config = {
       allChunks: true
     }),
   ],
+
+  resolve: {
+      modules: ['node_modules'],
+      extensions: ['.js', '.jsx', '.json']
+  },
 
   devServer: {
     contentBase: '../dist',

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './app.css';
 import user from './api/user';
+import PublicTest from './components/Test';
+import PrivateTest from './views/Test';
 
 class App extends Component {
   constructor(props) {
@@ -25,9 +27,11 @@ class App extends Component {
   }
 
   render() {
-    return (<div className="app">React App
+    return (<div>React App
       <p>user: {this.state.user}</p>
       <p>login: {this.state.login ? 'true' : 'false'}</p>
+      <PublicTest />
+      <PrivateTest />
     </div>);
   }
 }
