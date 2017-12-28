@@ -3,7 +3,6 @@ import 'babel-polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
-import { BrowserRouter, Route, Link} from 'react-router-dom';
 import App from './App';
 
 console.log(process.env.NODE_ENV);
@@ -11,9 +10,7 @@ console.log(process.env.NODE_ENV);
 let render = Component => {
   ReactDOM.render(
     <AppContainer>
-      <BrowserRouter>
-        <Route exact path='/' component={Component} />
-      </BrowserRouter>
+      <Component />
     </AppContainer>,
     document.getElementById('app')
   );
@@ -22,7 +19,7 @@ let render = Component => {
 render(App);
 
 if (module.hot) {
-  module.hot.accept('./App.jsx', () => {
+  module.hot.accept('./App', () => {
     render(App);
   });
 }

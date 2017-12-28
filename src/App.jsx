@@ -1,39 +1,23 @@
 import React, { Component } from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import routes from 'routes/index';
 import './app.css';
-import user from './api/user';
-import PublicTest from './components/Test';
-import PrivateTest from './views/Test';
+import Home from './views/Home/index';
+import Test from './views/Test/index';
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      login: false,
-      user: 'unknown user'
-    };
-  }
-
-  componentDidMount() {
-    user.info().then(res => {
-      console.log(res);
-      if (res.status === 1) {
-        let data = res.data;
-        this.setState({
-          user: data.name,
-          login: data.login
-        });
-      }
-    });
-  }
 
   render() {
-    return (<div>React App
-      <p>user: {this.state.user}</p>
-      <p>login: {this.state.login ? 'true' : 'false'}</p>
-      <PublicTest />
-      <PrivateTest />
-    </div>);
+    return (
+      <BrowserRouter>
+        <div>
+          <Route exact path='/' component={Home} />
+          <Route exact path='/test' component={Test} />
+        </div>
+      </BrowserRouter>
+    );
   }
+
 }
 
 export default App;

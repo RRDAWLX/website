@@ -6,6 +6,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const config = {
+
   entry: [
     'react-hot-loader/patch',
     './src/index.jsx',
@@ -83,9 +84,13 @@ const config = {
   ],
 
   resolve: {
-      modules: ['node_modules'],
-      extensions: ['.js', '.jsx', '.json']
-  },
+    modules: [
+      './src',    // 从项目根目录下的 src 文件夹里搜索自定义模块
+      'node_modules',
+    ],
+    extensions: ['.js', '.jsx', '.json']
+  }
+
 };
 
 module.exports = config;
