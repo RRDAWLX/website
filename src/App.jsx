@@ -4,6 +4,7 @@ import routes from 'routes/index';
 import './app.css';
 import Home from './views/Home/index';
 import Test from './views/Test/index';
+import Edit from './views/Edit/index';
 
 class App extends Component {
 
@@ -13,6 +14,7 @@ class App extends Component {
         <div>
           <Route exact path='/' component={Home} />
           <Route exact path='/test' component={Test} />
+          <Route path='/edit/:articleId' component={Edit} />
         </div>
       </BrowserRouter>
     );
