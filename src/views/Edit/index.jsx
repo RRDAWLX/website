@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Editor} from 'react-draft-wysiwyg';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
-import './index.css';
+import './index.less';
 
 export default class Edit extends Component {
 
@@ -17,7 +17,11 @@ export default class Edit extends Component {
     return (
       <div className="edit">
         <h3>Edit</h3>
-        <Editor />
+        <Editor
+          wrapperClassName="editor-area"
+          editorClassName="editor"
+          toolbarClassName="toolbar"
+        />
       </div>
     );
   }
