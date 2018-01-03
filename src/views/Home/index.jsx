@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import user from 'api/user';
+import './index.css';
 
 export default class Home extends Component {
 

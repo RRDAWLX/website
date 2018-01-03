@@ -27,11 +27,28 @@ const config = {
       },
 
       {
-        test: /\.css$/,
+        test: /\.(css|less)$/,
         // exclude: /node_modules/,
         use: ExtractTextPlugin.extract({  // 提取 css 到单独的样式文件
           // publicPath: 'https://mjrhd.vipstatic.com/',
-          use: ['css-loader']
+          use: [
+            {
+              loader: 'css-loader',
+              options: {
+                // modules: true,  // 开启 css module
+                minimize: false   // 不压缩
+              }
+            },
+            {
+              loader: 'postcss-loader',
+              options: {
+                plugins: [require('autoprefixer')()]
+              }
+            },
+            {
+              loader: 'less-loader'
+            },
+          ]
         })
       },
 
@@ -46,12 +63,7 @@ const config = {
 
   plugins: [
     new CleanWebpackPlugin(['../dist'], {allowExternal: true}),   // 每次构建前清理 dist 文件夹
-    // 压缩 js
-    /*new UglifyJsPlugin({
-      uglifyOptions: {
-        ecma: 8
-      }
-    }),*/
+
     new webpack.DefinePlugin({
       'process.env': {    // 配置系统环境变量
         'NODE_ENV': JSON.stringify('development')
@@ -78,10 +90,21 @@ const config = {
     }),
 
     // 提取 css 到单独的样式文件
+    // 经过之前的处理，会产生 main.js、vendor.js 、manifest.js 3 个 js 文件。
+    // 其中 main.js 和 vendor.js 中有样式信息，此插件中从中提取样式信息并生成 2 个 css 文件。
+    // 所以一下配置中的 filename 字段不能指定成一个固定的名称。
+    // 例如，如果指定成 style.css，则会先后生成 2 个 style.css 文件，后一个文件会覆盖前一个，最终只有 1 个 style.css，那么部分样式信息就丢失了。
     new ExtractTextPlugin({
-      filename: 'style.css',
+      filename: '[name].css',
       allChunks: true
     }),
+
+    // 压缩 js
+    /*new UglifyJsPlugin({
+      uglifyOptions: {
+        ecma: 8
+      }
+    }),*/
   ],
 
   resolve: {
