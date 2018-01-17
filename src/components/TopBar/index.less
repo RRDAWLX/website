@@ -1,0 +1,47 @@
+.component-top-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #2196F3;
+
+  .container {
+    max-width: 1200px;
+    padding: 0 10px;
+    margin: auto;
+
+    .navi {
+      float: left;
+
+      .tab {
+        float: left;
+        height: 46px;
+        padding: 0 10px;
+        border-top: 2px solid transparent;
+        border-bottom: 2px solid transparent;
+        color: white;
+        line-height: 46px;
+
+        &.active,
+        &:hover {
+          border-bottom-color: #fff;
+        }
+      }
+    }
+
+    .avatar {
+      display: flex;
+      align-items: center;
+      float: right;
+      height: 50px;
+      color: white;
+
+      img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        margin-right: 5px;
+      }
+    }
+  }
+}
