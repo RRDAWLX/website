@@ -1,9 +1,16 @@
-import React, { Component } from 'react';
-import { NavLink, Link } from 'react-router-dom';
-import './index.less';
+import React, { Component } from 'react'
+import { NavLink, Link } from 'react-router-dom'
+import './index.less'
+import {updateUserInfo} from 'store/actions/user'
 
-class TopBar extends Component {
+export default class TopBar extends Component {
+  componentWillMount() {
+    this.props.dispatch(updateUserInfo())
+  }
+
   render() {
+    let {name, avatar, login} = this.props.user
+
     return (
       <div className='component-top-bar'>
         <div className='container'>
@@ -25,13 +32,11 @@ class TopBar extends Component {
             to='/user'
             className='avatar'
             >
-            <img src="//upic.vimage1.com/upload/xupload/2017/11/14/74/7007781108_38x38_90.jpg" />
-            rrdawlx
+            <img src={avatar} />
+            {name}
           </Link>
         </div>
       </div>
-    );
+    )
   }
 }
-
-export default TopBar;

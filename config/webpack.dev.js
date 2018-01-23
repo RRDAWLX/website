@@ -99,6 +99,7 @@ const config = {
 
   devServer: {
     contentBase: '../dist',
+    // https: true,
     port: 8081,
     compress: true, // 开启 gzip 压缩
     historyApiFallback: true,   // 支持单页应用，用 index.html 响应 404 请求，不会响应被代理的请求。
@@ -108,12 +109,12 @@ const config = {
       errors: true
     },
     proxy: {
-      '/pages/': {
+      /*'/pages/': {
         target: 'http:\/\/localhost:8081',
         pathRewrite: {
           '^/pages/': '/'
         }
-      },
+      },*/
       '/api/': 'http:\/\/localhost:3001'  // 代理所有的异步请求
     },
     hot: true   // 开启模块热替换

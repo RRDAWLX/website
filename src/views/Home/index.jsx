@@ -14,7 +14,6 @@ export default class Home extends Component {
 
   componentDidMount() {
     user.info().then(res => {
-      console.log(res);
       if (res.status === 1) {
         let data = res.data;
         this.setState({
