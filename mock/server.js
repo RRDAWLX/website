@@ -1,4 +1,5 @@
 let express = require('express'),
+  fs = require('fs'),
   parse = require('url').parse,
   path = require('path'),
   errorhandler = require('errorhandler');
@@ -6,12 +7,26 @@ let express = require('express'),
 let app = new express();
 
 app.use(function(req, res, next) {
-  let url = path.join(__dirname, parse(req.url).pathname);
+  console.log(req.url);
+  let url = path.join(__dirname, parse(req.url).pathname + '.js');
   try {
-    res.json(require(url));
+    fs.stat(url, (err, stats) => {
+      if (!err && stats.isFile()) {
+        fs.readFile(url, 'utf8', (err, data) => {
+          if (!err) {
+            let module = {};
+            eval(data);
+            res.json(module.exports);
+          } else{
+            res.json({msg: 'no such a file'});
+          }
+        })
+      } else {
+        res.json({msg: 'no such a file'});
+      }
+    });
   } catch (e) {
-    e.status = 404;
-    next(e);
+    res.json({msg: 'no such a file'});
   }
 });
 
