@@ -1,7 +1,10 @@
 import user from 'api/user'
 
-const request_user_info = {
-  type: 'request_user_info'
+function requestUserInfo(request) {
+  return {
+    type: 'request_user_info',
+    request
+  }
 }
 
 function receiveUserInfo(info) {
@@ -20,14 +23,16 @@ export function updateUserInfoIfNeeded() {
     // 存在以下情况之一，则不做处理
     // 1、正在请求数据；
     // 2、当前数据是得到验证且未过期的(距离上次得到验证数据在10s以内)。
-    let { fetching, validated, updateTime} = getState().user
+    let { fetching, validated, updateTime, request} = getState().user
     if (fetching || (validated && Date.now() - updateTime < 10000)) {
-      return Promise.resolve()
+      return request
     }
 
-    dispatch(request_user_info)
+    let newRequest = user.info()
 
-    return user.info().then(res => {
+    dispatch(requestUserInfo(newRequest))
+
+    return newRequest.then(res => {
       if (res.status === 1 && !res.error) {
         return dispatch(receiveUserInfo(res.data))
       } else {
