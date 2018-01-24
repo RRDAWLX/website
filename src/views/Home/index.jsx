@@ -1,35 +1,25 @@
-import React, { Component } from 'react';
-import user from 'api/user';
-import './index.css';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { updateUserInfoIfNeeded } from 'store/actions/user'
+import user from 'api/user'
+import './index.css'
 
-export default class Home extends Component {
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      login: false,
-      user: 'unknown user'
-    };
-  }
-
-  componentDidMount() {
-    user.info().then(res => {
-      if (res.status === 1) {
-        let data = res.data;
-        this.setState({
-          user: data.name,
-          login: data.login
-        });
-      }
-    });
+class Home extends Component {
+  componentWillMount() {
+    this.props.dispatch(updateUserInfoIfNeeded())
   }
 
   render() {
+    let { name, login, fetching, validated } = this.props.user
+
     return (<div>
       <h3>Home</h3>
-      <p>User: { this.state.user }</p>
-      <p>Login: { this.state.login ? 'true' : 'false'}</p>
-    </div>);
+      <p>User: { name }</p>
+      <p>Login: { login ? 'true' : 'false' }</p>
+    </div>)
   }
-
 }
+
+export default connect(state => ({
+  user: state.user
+}))(Home)

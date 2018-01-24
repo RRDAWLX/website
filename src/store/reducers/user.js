@@ -7,7 +7,8 @@ export default function user(state = {}, action) {
     case 'receive_user_info':   // 请求用户信息成功
       return Object.assign({}, state, action.info, {
         fetching: false,
-        validated: true
+        validated: true,
+        updateTime: Date.now()
       })
     case 'invalidated_user_info':   // 请求用户信息失败
       return Object.assign({}, state, {

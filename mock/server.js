@@ -1,8 +1,7 @@
 let express = require('express'),
   fs = require('fs'),
   parse = require('url').parse,
-  path = require('path'),
-  errorhandler = require('errorhandler');
+  path = require('path');
 
 let app = new express();
 
@@ -29,8 +28,6 @@ app.use(function(req, res, next) {
     res.json({msg: 'no such a file'});
   }
 });
-
-app.use(errorhandler());
 
 let server = app.listen(3001, function() {
   let address = server.address();
