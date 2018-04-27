@@ -2,12 +2,13 @@ import React, { Component } from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { connect } from 'react-redux'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import ComponentAsyncLoader from './util/component-async-loader'
 
-import TopBar from './components/TopBar/index'
-import Home from './views/Home/index'
-import Test from './views/Test/index'
-import Edit from './views/Edit/index'
 import 'app.less'
+let TopBar = ComponentAsyncLoader({loader: () => import('./components/TopBar/index')}),
+    Home = ComponentAsyncLoader({loader: () => import('./views/Home/index')}),
+    Test = ComponentAsyncLoader({loader: () => import('./views/Test/index')}),
+    Edit = ComponentAsyncLoader({loader: () => import('./views/Edit/index')})
 
 export default class App extends Component {
   render() {
