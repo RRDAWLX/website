@@ -15,7 +15,7 @@ const config = {
   output: {
     filename: '[name].[chunkhash:8].js',
     path: path.resolve(__dirname, '../docs'),  // 必须为绝对路径
-    publicPath: '/'  // 可通过 __webpack_public_path__ 设置
+    publicPath: '/website/'  // 可通过 __webpack_public_path__ 设置
   },
 
   module: {
