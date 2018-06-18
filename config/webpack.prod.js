@@ -14,7 +14,7 @@ const config = {
 
   output: {
     filename: '[name].[chunkhash:8].js',
-    path: path.resolve(__dirname, '../dist'),  // 必须为绝对路径
+    path: path.resolve(__dirname, '../docs'),  // 必须为绝对路径
     publicPath: '/'  // 可通过 __webpack_public_path__ 设置
   },
 
@@ -61,7 +61,7 @@ const config = {
   },
 
   plugins: [
-    new CleanWebpackPlugin(['../dist'], {allowExternal: true}),   // 每次构建前清理 dist 文件夹
+    new CleanWebpackPlugin(['../docs'], {allowExternal: true}),   // 每次构建前清理 docs 文件夹
 
     new webpack.DefinePlugin({
       'process.env': {    // 配置系统环境变量
