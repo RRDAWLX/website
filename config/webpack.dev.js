@@ -68,11 +68,15 @@ const config = {
         'NODE_ENV': JSON.stringify('development')
       }
     }),
+
     // 生成一个HTML文件
     new HtmlWebpackPlugin({
       template: 'src/index.html'
     }),
-    new webpack.NamedModulesPlugin(),   // 作用：1、用路径标识模块，而不是用数字标识符，避免 vendor 的chunkhash 发生变化；2、用于开启模块热替换
+
+    // 作用：1、用路径标识模块，而不是用数字标识符，避免 vendor 的chunkhash 发生变化。
+    // 2、用于开启模块热替换建。议在production模式中使用此插件。
+    new webpack.NamedModulesPlugin(),
     new webpack.HotModuleReplacementPlugin(),   // 用于开启模块热替换
 
     // 提取第三方库，此实例必须在 manifest 实例前面。
