@@ -52,9 +52,36 @@ const config = {
       },
 
       {
-        test: /\.(png|jpg|gif)$/,
+        test: /\.(png|jpe?g|gif)$/,
         use: [
-          'file-loader',
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[hash:6].[ext]'
+              // outputPath: 'images/'  // 用于将图片打包至指定目录，已被发布到单独的图片域
+              // publicPath: 'https://mjrhd.vipstatic.com/'   // 用于指定图片资源发布路径
+            }
+          },
+          {
+            loader: 'image-webpack-loader',
+            options: {
+              mozjpeg: {
+                progressive: true,
+                quality: 65
+              },
+              // optipng.enabled: false will disable optipng
+              optipng: {
+                enabled: false,
+              },
+              pngquant: {
+                quality: '65-90',
+                speed: 4
+              },
+              gifsicle: {
+                interlaced: false,
+              }
+            }
+          },
         ]
       },
     ]

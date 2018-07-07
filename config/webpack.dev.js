@@ -52,9 +52,14 @@ const config = {
       },
 
       {
-        test: /\.(png|jpg|gif)$/,
+        test: /\.(png|jpe?g|gif)$/,
         use: [
-          'file-loader',
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[hash:6].[ext]'
+            }
+          },
         ]
       },
     ]
