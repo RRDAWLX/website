@@ -21,7 +21,6 @@
   "homepage": "https://github.com/RRDAWLX/website#readme",
   "dependencies": {
     "axios": "^0.17.1",
-    "babel-plugin-syntax-dynamic-import": "^6.18.0",
     "babel-polyfill": "^6.26.0",
     "draft-js": "^0.10.4",
     "immutable": "^3.8.2",
@@ -43,6 +42,7 @@
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.2",
     "babel-minify-webpack-plugin": "^0.2.0",
+    "babel-plugin-syntax-dynamic-import": "^6.18.0",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "clean-webpack-plugin": "^0.1.17",
@@ -64,7 +64,12 @@
   "babel": {
     "presets": [
       "react",
-      "env"
+      [
+        "env",
+        {
+          "useBuiltIns": true
+        }
+      ]
     ],
     "plugins": [
       "react-hot-loader/babel",
